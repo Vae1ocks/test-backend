@@ -1,49 +1,44 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class CustomUser(AbstractUser):
-    """Кастомная модель пользователя - студента."""
-
-    email = models.EmailField(
-        verbose_name='Адрес электронной почты',
-        max_length=250,
-        unique=True
-    )
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = (
-        'username',
-        'first_name',
-        'last_name',
-        'password'
-    )
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-        ordering = ('-id',)
-
-    def __str__(self):
-        return self.get_full_name()
+from courses.models import Course
+from .user_model import CustomUser
 
 
 class Balance(models.Model):
     """Модель баланса пользователя."""
+    user = models.OneToOneField(CustomUser,
+                                on_delete=models.CASCADE,
+                                related_name='balance')
 
-    # TODO
+    # Тут ведь купонная система, поэтому решил без DecimalField
+    bonuses = models.PositiveIntegerField(default=1000)
 
     class Meta:
         verbose_name = 'Баланс'
         verbose_name_plural = 'Балансы'
         ordering = ('-id',)
 
+    def __str__(self):
+        return f'balance {self.bonuses} of {self.user.id}'
+
 
 class Subscription(models.Model):
     """Модель подписки пользователя на курс."""
+    user = models.ForeignKey(CustomUser,
+                             on_delete=models.CASCADE,
+                             related_name='subscriptions')
+    course = models.ForeignKey(Course,
+                               on_delete=models.CASCADE,
+                               related_name='subscriptions')
 
-    # TODO
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         ordering = ('-id',)
+
+    def __str__(self):
+        return f'subscription of {self.user.id} to {self.course.id}'
 
