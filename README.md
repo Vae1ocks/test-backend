@@ -1,3 +1,45 @@
+# Запуск проекта:
+
+## Установка зависимостей:
+
+### 1 вариант:
+
+1. Установка зависимостей
+```
+poetry install
+```
+2. Использование. Все последующие команды, по типу `python manage.py ...` должны включать в себя `poetry run ...`
+
+### 2 вариант - использования pip:
+
+1. Установите и активируйте виртуальное окружение:
+    ```
+    python -m venv venv
+    source venv/Scripts/activate  - для Windows
+    source venv/bin/activate - для Linux
+    ```
+2. Установите зависимости:
+    ```
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    ```
+
+## Запуск:
+
+4. Перейдите в папку product и выполните миграции:
+    ```
+    cd product
+    python manage.py migrate
+    ```
+5. Создайте суперпользователя:
+    ```
+    python manage.py createsuperuser
+    ```
+6. Запустите проект:
+    ```
+    python manage.py runserver
+    ```
+
 
 # Тестовое задание Django/Backend
 
