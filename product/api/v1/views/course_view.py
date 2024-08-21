@@ -6,6 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from drf_spectacular.utils import extend_schema, extend_schema_field
+
 from api.v1.permissions import (IsStudentOfCourseOrIsAdmin,
                                 IsStudentOfLessonOrIsAdmin,
                                 ReadOnlyOrIsAdmin)
@@ -86,6 +88,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             return CourseDetailSerializer
         return CreateCourseSerializer
 
+
     @action(
         methods=['post'],
         detail=True,
@@ -93,7 +96,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     )
     def pay(self, request, pk):
         """
-        Оплата курса за бонусы.
+        Оплата курса за бонусы. Пустой post-запрос на ендпоинт.
         """
         user = request.user
 

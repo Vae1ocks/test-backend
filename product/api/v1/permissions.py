@@ -3,6 +3,10 @@ from users.models import Subscription
 
 
 class IsStudentOfCourseOrIsAdmin(BasePermission):
+    """
+    Проверка, является ли пользователь студентом курса
+    при обращении к уроку данного курса.
+    """
     def has_object_permission(self, request, view, obj):
         if request.user.is_staff:
             return True
@@ -10,6 +14,10 @@ class IsStudentOfCourseOrIsAdmin(BasePermission):
 
 
 class IsStudentOfLessonOrIsAdmin(BasePermission):
+    """
+    Проверка, является ли пользователь студентом курса
+    при обращении к данному курсу.
+    """
     def has_object_permission(self, request, view, obj):
         if request.user.is_staff:
             return True

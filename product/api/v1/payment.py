@@ -10,6 +10,7 @@ from courses.models import Course, Group
 
 
 def make_payment(user, user_balance, course, price):
+    """Оплата курса. """
     with transaction.atomic():
         user_balance.bonuses = F('bonuses') - price
         user_balance.save()

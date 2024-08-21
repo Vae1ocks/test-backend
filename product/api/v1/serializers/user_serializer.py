@@ -54,6 +54,10 @@ class UserAdminEditSerializer(serializers.ModelSerializer):
 
 
 class UserPersonalInfoSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор персональной информации пользователя: имя, фамилия, почта.
+    """
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']

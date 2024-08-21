@@ -72,7 +72,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     """Список групп."""
 
-    course = serializers.StringRelatedField(read_only=True)
+    course = serializers.StringRelatedField(read_only=True) # course.title
     students = UserPersonalInfoSerializer(many=True, read_only=True)
 
     class Meta:
